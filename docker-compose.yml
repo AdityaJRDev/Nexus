@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  sandbox:
+    image: node:20-alpine
+    container_name: campus_sandbox
+    volumes:
+      # This mounts our local shared-sandbox directory inside the container
+      - ./shared-sandbox:/workspace
+    working_dir: /workspace
+    # Keeps the container running indefinitely in the background
+    command: sh -c "apk add --no-cache bash python3 && tail -f /dev/null"
+    ports:
+      - "8080:8080" # For testing any apps you build inside the sandbox
