@@ -3,6 +3,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
 const { spawn } = require("child_process");
+const connectDB = require("./config/db");
 
 const app = express();
 app.use(cors());
@@ -62,6 +63,9 @@ io.on("connection", (socket) => {
 });
 
 const PORT = 5000;
-server.listen(PORT, () => {
-  console.log(`Nexus backend running on port ${PORT}`);
+
+connectDB().then(() => {
+  server.listen(PORT, () => {
+    console.log(`Nexus backend running on port ${PORT}`);
+  });
 });
